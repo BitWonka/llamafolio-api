@@ -30,7 +30,11 @@ export function getDocClient() {
     return docClient
   }
 
-  client = new DynamoDBClient({})
+  client = new DynamoDBClient({
+    endpoint: environment.STAGE === 'local' ? 'http://localhost:8000' : undefined,
+    region: environment.STAGE === 'local' ? 'us-east-1' : undefined,
+  })
+
   docClient = DynamoDBDocumentClient.from(client, translateConfig)
 
   return docClient
