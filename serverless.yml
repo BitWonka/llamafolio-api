@@ -12,8 +12,8 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
-  stage: dev
-  region: eu-central-1
+  stage: local
+  region: us-east-1
   endpointType: REGIONAL # Set to regional because the api gateway will be behind a cloudfront distribution
   tracing:
     apiGateway: true
@@ -44,9 +44,11 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:BatchGetItem
       Resource:
-        - 'arn:aws:dynamodb:eu-central-1:610755237132:table/${self:custom.tableName}'
+        - 'arn:aws:dynamodb:table/${self:custom.tableName}'
 
   environment:
+    AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
     CLICKHOUSE_HOST: ${env:CLICKHOUSE_HOST}
     CLICKHOUSE_USER: ${env:CLICKHOUSE_USER}
     CLICKHOUSE_PASSWORD: ${env:CLICKHOUSE_PASSWORD}

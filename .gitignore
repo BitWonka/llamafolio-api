@@ -58,3 +58,6 @@ test/reports/*.json
 
 _
 /internal
+
+# IDE
+.idea
